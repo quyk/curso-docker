@@ -1,5 +1,5 @@
 # Inicia uma imagem do Docker
-docker container stop <id>
+docker container start <id>
 
 # Reinicia uma imagem do Docker
 docker container restart <id>
@@ -27,7 +27,7 @@ docker container ps -a
 
 # Criar uma imagem mapeada, rodando em background
 # -d Coloca o docker para rodar em background
-docker container run -d --name ex-daemon-basic -p 8080:80 -v d:\OneDrive\Estudos\Docker\Udemy\ex-volume\html:/usr/share/nginx/html n
+docker container run -d --name ex-daemon-basic -p 8080:80 -v ./html:/usr/share/nginx/html n
 ginx
 
 # Listar as imagens
@@ -60,7 +60,7 @@ docker image inspect --format='{{index .Config.Labels \"maintainer\"}}' ex-build
 
 # Docker com python
 docker image build -t ex-build-dev .
-docker container run -it -v D:\OneDrive\Estudos\Docker\Udemy\build-dev:/app -p 80:8000 --name python-server ex-build-dev
+docker container run -it -v ./build-dev:/app -p 80:8000 --name python-server ex-build-dev
 docker container run -it --volumes-from=python-server debian cat /log/http-server.log
 
 # Criando nova tag
@@ -101,3 +101,6 @@ docker-compose exec db psql -U postgres -f ./scripts/check.sql
 docker-compose logs -f -t
 
 docker-compose exec db psql -U postgres -d email_sender -c 'select * from emails'
+
+# Escalando Docker
+docker-compose up -d --scale worker=3
