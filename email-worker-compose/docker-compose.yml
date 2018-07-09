@@ -43,6 +43,11 @@ services:
     depends_on:
       - db
       - queue
+    environment: 
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_NAME=email_sender
+      - REDIS_HOST=queue
   
   queue:
     image: redis:3.2
@@ -60,3 +65,5 @@ services:
       - fila
     depends_on: 
       - queue
+    environment: 
+      - REDIS_HOST=queue
